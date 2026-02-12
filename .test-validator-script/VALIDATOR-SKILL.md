@@ -1,37 +1,28 @@
-# Validator Test Helper Skill Reference
+# Validator skill reference
 
-## Purpose
+## Standards
 
-Create and enforce **validators** (required checks) for test expectations, coverage gates, and security/performance guardrails.
-
-## When to use
-
-- Adding or tightening PR gates (e.g. tests required, coverage)
-- Wiring validators into CI (GitHub Actions, GitLab, Jenkins)
-- Reviewing why a PR should pass or fail on required validations
-
-## Validator standards
-
-- **Deterministic** – no flaky network; stable inputs
-- **Fast** – PR checks finish quickly
-- **Actionable** – failure output says what failed, why, and how to fix
-- **CI-friendly** – exit codes, clear logs
+- **Deterministic** — No flaky network calls.
+- **Fast** — PR checks finish quickly.
+- **Actionable** — Fail output tells the developer what to fix.
+- **CI-friendly** — Exit codes and clear logs.
 
 ## Naming and outputs
 
-- Script: `validate_<thing>.py` (or `.sh`/`.js`)
-- CI job: `validate:<thing>`
-- On failure: print **what failed**, **why**, and **how to fix**
+- Script: `validate_<thing>.py` or `test-required.py` in this directory.
+- CI job: `validate:<thing>` (e.g. `validate:test-required`).
+- On failure: Print what failed, why, and how to fix.
 
-## Recommended validators
+## Validators
 
-1. **Tests-required (core)** – PR fails if there are no tests or tests don’t pass.
-2. **Coverage gate** – Block merges that reduce coverage or fall below threshold (e.g. 80%).
-3. **Security** – SAST, dependency scan, secrets detection (when requested).
-4. **Performance** – For critical paths or nightly; fail on regression threshold.
+### Test-required (core)
 
-## CI checklist
+PR fails if code changes do not include or trigger tests. Exceptions via `VALIDATION_SKIP=test-required`.
 
-- Validators run on **PR** (blocking) and on **main** (full).
-- Results visible as **required checks**.
-- Run fast validators first; cache deps/build to keep runtimes low.
+### Coverage gate (optional)
+
+Block merges below a coverage threshold when coverage tooling is present.
+
+### Security / performance (optional)
+
+SAST, dependency scan, secrets; performance regression checks on critical paths.

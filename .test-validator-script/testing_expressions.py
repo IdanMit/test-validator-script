@@ -1,27 +1,29 @@
-"""
-Testing expression utilities: path and pattern helpers for validators.
-"""
-from pathlib import Path
+"""Shared expressions and helpers for test validation."""
+
+import os
+
+TESTS_DIR = "tests"
+VALIDATION_SKIP_ENV = "VALIDATION_SKIP"
 
 
-def is_test_file(path: Path) -> bool:
-    """Return True if path looks like a test module (test_*.py or *_test.py)."""
-    name = path.name
-    return name.startswith("test_") and name.endswith(".py") or (
-        name.endswith("_test.py")
-    )
+def should_skip(validator_name: str) -> bool:
+    """Return True if VALIDATION_SKIP contains this validator (e.g. 'test-required')."""
+    skip = os.environ.get(VALIDATION_SKIP_ENV, "")
+    return validator_name in [s.strip() for s in skip.split(",") if s.strip()]
 
 
-def collect_test_files(tests_dir: Path):
-    """Yield test files under tests_dir (test_*.py and *_test.py)."""
-    if not tests_dir.is_dir():
-        return
-    for p in tests_dir.glob("test_*.py"):
-        yield p
-    for p in tests_dir.glob("*_test.py"):
-        yield p
+def tests_dir_exists() -> bool:
+    """Return True if the tests directory exists."""
+    return os.path.isdir(TESTS_DIR)
 
 
-def has_tests(tests_dir: Path) -> bool:
-    """Return True if tests_dir exists and contains at least one test file."""
-    return any(collect_test_files(tests_dir))
+def has_test_files() -> bool:
+    """Return True if tests/ contains at least one test file (test_*.py or *_test.py)."""
+    if not tests_dir_exists():
+        return False
+    for name in os.listdir(TESTS_DIR):
+        if name.startswith("test_") and name.endswith(".py"):
+            return True
+        if name.endswith("_test.py"):
+            return True
+    return False

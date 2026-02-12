@@ -1,34 +1,28 @@
-# Test Validator Scripts
+# Test validator scripts
 
-This directory holds validator script assets and skill reference documentation for the Logs project.
+This directory holds the validator implementation and skill reference used by CI and the root `validate_test_required.py`.
 
-## Validators
+## Contents
 
-| Validator        | Script (project root)     | Purpose                                      |
-|------------------|---------------------------|----------------------------------------------|
-| test-required    | `validate_test_required.py` | Ensures `tests/` exists, has test files, and all tests pass. |
+- **README.md** — This file.
+- **VALIDATOR-SKILL.md** — Validator skill reference and standards.
+- **test-required.py** — Test-required validator: ensures `tests/` exists, contains test files, and all tests pass.
+- **testing_expressions.py** — Shared expressions/helpers for test validation.
 
-## Running from this directory
+## Usage
 
-The main validator is at project root. From the repo root:
+From repo root:
 
 ```bash
 python validate_test_required.py
 ```
 
-Or use the wrapper in this directory (runs the root script):
+Or run the script directly:
 
 ```bash
 python .test-validator-script/test-required.py
 ```
 
-## Files
+## Skip validation
 
-- **README.md** (this file) – Documentation for validator scripts.
-- **VALIDATOR-SKILL.md** – Skill reference for the Validator Test Helper.
-- **test-required.py** – Wrapper that invokes the root test-required validator.
-- **testing_expressions.py** – Utilities for test path/expression handling.
-
-## CI
-
-Validators run in GitHub Actions (`.github/workflows/validate.yml`) on pull requests and pushes to `main`/`master`. Required checks must pass before merge.
+Set `VALIDATION_SKIP=test-required` to bypass the test-required check (e.g. for docs-only PRs).
