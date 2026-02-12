@@ -1,0 +1,10 @@
+# Validator audit output (do not commit env dumps)
+.validator-env.log
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+venv/
+.venv/

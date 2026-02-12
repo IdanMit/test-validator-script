@@ -1,0 +1,52 @@
+{
+  "data": {
+    "main_title": "Long-Term Guests & Risky Personal Access - Slack",
+    "date_start": "April 24, 2025",
+    "date_end": "July 24, 2025",
+    "hypothesis": "Mitiga performed a threat hunt in your Slack environment to identify if threat actors are leveraging compromised guest accounts and personal email access to establish sophisticated persistence mechanisms within your collaboration infrastructure. This hunt utilized sophisticated scenarios used by threat actors targeting Slack, focusing on detecting attackers maintaining prolonged guest access beyond typical business timelines, rapidly expand channel access through external accounts, anonymized email domains to mask malicious identities as well as employing personal email accounts for high-volume file download.",
+    "mitre": [
+      "persistence",
+      "exfiltration",
+      "collection"
+    ],
+    "scenarios": [
+      "Guest Access Persistence",
+      "Rapid Channel Addition",
+      "Anonymized Email Infiltration",
+      "Cross-Channel Access Sprawl",
+      "Bulk Data Exfiltration"
+    ],
+    "threat_intelligence": {
+      "info": "Mitiga Labs identified sophisticated scenarios leveraged by threat actors targeting Slack as a tactic to exfiltrate, persist and impact in a post-exploit attack by maintaining prolonged guest access beyond typical business timelines, rapidly expanding channel access through external accounts within short timeframes, utilizing anonymized email domains to mask malicious identities, and employing personal email accounts for high-volume file downloads",
+      "indicators": []
+    },
+    "sources": {
+      "available": [
+        "audit-logs"
+      ],
+      "unavailable": []
+    },
+    "resources": {
+      "subscriptions": 0,
+      "services": {}
+    },
+    "regions": [],
+    "tools": [
+      "Cloud Attack Scenario Library (CASL)"
+    ],
+    "investigator": "",
+    "results": {
+      "status": "LOW_RISK",
+      "visibility": "NO_GAPS",
+      "description": "Mitiga did not identify any suspicious or malicious activity within your AWS environment during the analyzed time frame.",
+      "findings": [],
+      "recommendations": [
+        "Implement guest account expiration policies",
+        "Deploy guest invitation approval workflows",
+        "Configure retention policies for message and file management",
+        "Enable audit log monitoring for suspicious activity patterns",
+        "Deploy third-party DLP solutions via Discovery API for comprehensive monitoring"
+      ]
+    }
+  }
+}
