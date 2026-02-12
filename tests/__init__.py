@@ -1,1 +1,1 @@
-# Tests package for Logs utilities
+# Tests package for Logs project

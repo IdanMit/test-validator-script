@@ -1,37 +1,37 @@
-# Validator Skill Reference
+# Validator Test Helper Skill Reference
+
+## Purpose
+
+Create and enforce **validators** (required checks) for test expectations, coverage gates, and security/performance guardrails.
+
+## When to use
+
+- Adding or tightening PR gates (e.g. tests required, coverage)
+- Wiring validators into CI (GitHub Actions, GitLab, Jenkins)
+- Reviewing why a PR should pass or fail on required validations
 
 ## Validator standards
 
-- **Deterministic**: No flaky network calls; stable inputs.
-- **Fast**: PR checks finish quickly.
-- **Actionable**: Fail output states what failed, why, and how to fix.
-- **CI-friendly**: Exit codes (0 = pass, non-zero = fail), clear logs.
+- **Deterministic** – no flaky network; stable inputs
+- **Fast** – PR checks finish quickly
+- **Actionable** – failure output says what failed, why, and how to fix
+- **CI-friendly** – exit codes, clear logs
 
 ## Naming and outputs
 
-- Script: `validate_<thing>.py` or `test-required.py` in this directory.
-- CI job: `validate:<thing>` (e.g. `validate:test-required`).
-- On failure: print **what failed**, **why**, and **how to fix**.
+- Script: `validate_<thing>.py` (or `.sh`/`.js`)
+- CI job: `validate:<thing>`
+- On failure: print **what failed**, **why**, and **how to fix**
 
 ## Recommended validators
 
-### A) Tests-required (core)
-
-- **Goal**: PR fails if there are no tests or if the test suite fails.
-- **Implementation**: Ensure `tests/` exists, contains `test_*.py` or `*_test.py`, and `pytest tests/` passes.
-- **Skip**: Use `VALIDATION_SKIP` with justification only when necessary (e.g. docs-only PRs).
-
-### B) Coverage gate (optional)
-
-- Run only if coverage tooling exists (e.g. pytest-cov).
-- Default threshold: 80% for new/changed code.
-
-### C) Security / performance
-
-- Add when requested (SAST, dependency scan, secrets, performance regression).
+1. **Tests-required (core)** – PR fails if there are no tests or tests don’t pass.
+2. **Coverage gate** – Block merges that reduce coverage or fall below threshold (e.g. 80%).
+3. **Security** – SAST, dependency scan, secrets detection (when requested).
+4. **Performance** – For critical paths or nightly; fail on regression threshold.
 
 ## CI checklist
 
-- Validators run on **PR** (blocking) and on **main**/master (full).
+- Validators run on **PR** (blocking) and on **main** (full).
 - Results visible as **required checks**.
-- Fast validators first; cache deps to keep runtimes low.
+- Run fast validators first; cache deps/build to keep runtimes low.

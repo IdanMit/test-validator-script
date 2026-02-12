@@ -1,23 +1,27 @@
 """
-Testing expression utilities for validators.
-Used for test discovery patterns and validation logic.
+Testing expression utilities: path and pattern helpers for validators.
 """
 from pathlib import Path
 
-# Glob patterns that identify test modules
-TEST_FILE_GLOBS = ("test_*.py", "*_test.py")
+
+def is_test_file(path: Path) -> bool:
+    """Return True if path looks like a test module (test_*.py or *_test.py)."""
+    name = path.name
+    return name.startswith("test_") and name.endswith(".py") or (
+        name.endswith("_test.py")
+    )
 
 
-def find_test_files(tests_dir: Path) -> list[Path]:
-    """Return list of Python test files under tests_dir."""
+def collect_test_files(tests_dir: Path):
+    """Yield test files under tests_dir (test_*.py and *_test.py)."""
     if not tests_dir.is_dir():
-        return []
-    out = []
-    for pattern in TEST_FILE_GLOBS:
-        out.extend(tests_dir.glob(pattern))
-    return sorted(set(out))
+        return
+    for p in tests_dir.glob("test_*.py"):
+        yield p
+    for p in tests_dir.glob("*_test.py"):
+        yield p
 
 
-def has_required_tests(tests_dir: Path) -> bool:
+def has_tests(tests_dir: Path) -> bool:
     """Return True if tests_dir exists and contains at least one test file."""
-    return len(find_test_files(tests_dir)) > 0
+    return any(collect_test_files(tests_dir))

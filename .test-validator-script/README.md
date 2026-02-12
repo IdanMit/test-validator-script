@@ -1,33 +1,34 @@
 # Test Validator Scripts
 
-This directory holds validator scripts and utilities used by the project's CI and local checks.
+This directory holds validator script assets and skill reference documentation for the Logs project.
 
-## Contents
+## Validators
 
-| File | Purpose |
-|------|---------|
-| `test-required.py` | Main test-required validator (ensures `tests/` exists, has test files, and all tests pass). |
-| `testing_expressions.py` | Utilities for test discovery and validation expressions. |
-| `VALIDATOR-SKILL.md` | Skill reference for validator behavior and CI integration. |
+| Validator        | Script (project root)     | Purpose                                      |
+|------------------|---------------------------|----------------------------------------------|
+| test-required    | `validate_test_required.py` | Ensures `tests/` exists, has test files, and all tests pass. |
 
-## Running validators
+## Running from this directory
 
-From the **project root** (not this directory):
+The main validator is at project root. From the repo root:
 
 ```bash
-# Run the test-required validator (recommended)
 python validate_test_required.py
+```
 
-# Or run the script in this directory (same behavior)
+Or use the wrapper in this directory (runs the root script):
+
+```bash
 python .test-validator-script/test-required.py
 ```
 
+## Files
+
+- **README.md** (this file) – Documentation for validator scripts.
+- **VALIDATOR-SKILL.md** – Skill reference for the Validator Test Helper.
+- **test-required.py** – Wrapper that invokes the root test-required validator.
+- **testing_expressions.py** – Utilities for test path/expression handling.
+
 ## CI
 
-Validators run on every PR and push to `main`/`master` via `.github/workflows/validate.yml`. The job name is `validate:test-required`.
-
-## Fail messaging
-
-- **tests/ missing**: Create `tests/` and add at least one `test_*.py` or `*_test.py`.
-- **No test files**: Add test modules under `tests/`.
-- **Tests failed**: Run `pytest tests/ -v` locally and fix failing tests.
+Validators run in GitHub Actions (`.github/workflows/validate.yml`) on pull requests and pushes to `main`/`master`. Required checks must pass before merge.
