@@ -20,6 +20,8 @@ pip install -r requirements.txt
 python validate_test_required.py
 ```
 
+Validator scripts and skill reference live in `.test-validator-script/` (see that directory’s README).
+
 ### If a validator fails
 
 - **validate_test_required**: Create or fix tests under `tests/`. Run `pytest tests/ -v` to reproduce. PR is blocked until tests pass.
