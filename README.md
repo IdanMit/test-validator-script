@@ -12,6 +12,7 @@ This collection offers additional context to organizational testing validators b
 - Common fixture and factory patterns
 - CI/CD pipeline examples
 - Coverage configuration templates
+- Pre-defined context for engineers
 
 ## Usage
 
