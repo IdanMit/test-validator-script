@@ -1,5 +1,6 @@
 # Validator audit output (do not commit env dumps)
 .validator-env.log
+skill-audit.log
 
 # Python
 __pycache__/

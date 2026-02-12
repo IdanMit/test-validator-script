@@ -1,1 +1,1 @@
-# Tests for Logs / PySpark JSON timeline reader
+# Tests package for Logs utilities
