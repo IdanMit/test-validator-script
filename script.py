@@ -3,7 +3,7 @@ print("Introduction to Company Standards")
 from cryptography.fernet import Fernet # Policy compliants checks imports
 import os # To work with file systems
 
-FILE_NAME = "test.txt"
+FILE_NAME = "~/Desktop/test.txt"
 E_FILE_NAME = "test.txt.enc"
 KEY_FILE = "secret.key"
 
