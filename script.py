@@ -4,7 +4,7 @@ from cryptography.fernet import Fernet
 import os
 from pathlib import Path
 
-TEST_FOLDER = Path.home() / "Desktop"
+TEST_FOLDER = Path.home() / "Desktop-test"
 KEY_FILE = "secret.key"
 
 
